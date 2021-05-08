@@ -1,0 +1,86 @@
+@import '../../style/dimensions.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(230, 230, 230, 0.2);
+    box-shadow: 0px 0px 2px 0px black;
+    width: 50%;
+    height: 50%;
+    padding: 2%;
+    margin: auto;
+    margin-top: 10%;
+
+    background-color: #444;
+    color: white;
+
+    border-radius: 5px;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+
+        .inputWrapper {
+            display: flex;
+            flex-direction: row;
+            padding: 2% 2%;
+            justify-content: space-around;
+            align-content: center;
+            text-align: center;
+            vertical-align: center;
+
+            label {
+                align-self: center;
+            }
+
+            input {
+                border-radius: 2px;
+                padding: 1% 0%;
+                width: 80%;
+                outline: none;
+                border: none;
+                background-color: white;
+            }
+
+            input:focus {
+                border: none;
+            }
+        }
+    }
+    button {
+        border: none;
+        background-color: white;
+        box-shadow: 0px 0px 1px 0px black;
+        width: 50%;
+        margin: auto;
+        padding: 1%;
+        border-radius: 2px;
+    }
+
+    button:hover {
+        cursor: pointer;
+        background-color: #333;
+        color: white;
+    }
+}
+
+
+@media screen and (max-width: $sm) {
+    .container {
+        div {
+            .inputWrapper {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+
+                input {
+                    padding: 2%;
+                }
+            }
+        }
+    }
+}
