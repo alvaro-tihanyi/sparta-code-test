@@ -1,11 +1,12 @@
+import Cookies from 'universal-cookie';
 import Login from 'pages/login';
 import Board from 'pages/board';
 
 const App = () => {
-  const token = localStorage.getItem('token');
-  console.log(token);
+  const cookies = new Cookies();
+  const token = cookies.get('token');
 
-  return token === null ? <Login /> : <Board />;
+  return token === undefined ? <Login /> : <Board user={token.username} />;
 }
 
 export default App;

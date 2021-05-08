@@ -1,18 +1,9 @@
 import React, { useState } from "react";
+import Cookies from 'universal-cookie';
 import { login } from 'actions/users';
 
-type UpdaterMethod = "setUsername" | "setPassword";
-type EventTarget = { target: { value: string } };
-type InputType = { label: string | undefined, type: string, value: string, onChange: (e: EventTarget) => void, };
-
-const Input = ({ label, type, value, onChange }: InputType ) => {
-    return (
-        <div className="inputWrapper">
-            { label && <label>{label}</label>}
-            <input type={type} value={value} onChange={onChange} />
-        </div>
-    );
-};
+import { UpdaterMethod, EventTarget } from 'helpers/types';
+import Input from 'components/input';
 
 const Login = () => {
     const [ username, setUsername ] = useState('');
@@ -33,7 +24,8 @@ const Login = () => {
             .then((token) => {
                 setLoggedIn(true);
                 setLoading(false);
-                localStorage.setItem('token', JSON.stringify(token));
+                const cookies = new Cookies();
+                cookies.set('token', JSON.stringify(token));
                 window.location.reload();
             })
     };
@@ -46,8 +38,8 @@ const Login = () => {
                     {
                         loggedIn ? <span>SUCCESS!</span> : <>
                             <div>
-                                <Input label="Username" type="text" value={username} onChange={(e) => handleChanges(e, 'setUsername')} />
-                                <Input label="Password" type="password" value={password} onChange={(e) => handleChanges(e, 'setPassword')} />
+                                <Input label="Username" type="text" value={username} onChange={(e: EventTarget) => handleChanges(e, 'setUsername')} />
+                                <Input label="Password" type="password" value={password} onChange={(e: EventTarget) => handleChanges(e, 'setPassword')} />
                             </div>
                             <button onClick={handleLogin}>Log in</button>
                         </>
