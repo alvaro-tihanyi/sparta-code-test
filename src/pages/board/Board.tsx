@@ -12,18 +12,20 @@ const Card = ({ title, description, onClick }: CardProps) => {
 }
 
 interface TaskForm extends Task {
+    title: string,
+    description: string,
     status: string,
 }
 
 const Board = ({ user }: { user: string }) => {
     const [ isAdding, setIsAdding ] = useState(false);
+    const [ isUpdating, setIsUpdating ] = useState(false);
     const [ tasks, setTasks ] = useState<Tasks>({ 'open': [], 'work in progress': [], 'done': [] });
 
     const defaultTaskFormValue = { title: '', description: '', status: 'open' };
-
     const [ taskForm, setTaskForm ] = useState<TaskForm>(defaultTaskFormValue);
 
-    const handleChangeFormInput = (key: 'title' | 'description' | 'status', e: EventTarget) => {
+    const handleChangeFormInput = (key: keyof TaskForm, e: EventTarget) => {
         const { target: { value }} = e;
         const currentTaskForm = { ...taskForm };
         currentTaskForm[key] = value;
@@ -47,7 +49,11 @@ const Board = ({ user }: { user: string }) => {
 
     const handleUpdateTask = (form: TaskForm) => {
         setTaskForm(form);
-        setIsAdding(true);
+        setIsUpdating(true);
+    }
+
+    const handleChangeTask = () => {
+        
     }
 
     return (
@@ -72,18 +78,42 @@ const Board = ({ user }: { user: string }) => {
                 isAdding && (
                     <Modal>
                         <div className="header">
-                            <div>HELLO</div>
+                            <div>Add a new task</div>
                             <Button className="close" onClick={() => setIsAdding(false)}>X</Button>
                         </div>
 
                         <div className="form">
-                            <Input label="Task title" value={taskForm.title} onChange={(e: EventTarget) => handleChangeFormInput('title', e)} />
-                            <Input label="Task description" value={taskForm.description} onChange={(e: EventTarget) => handleChangeFormInput('description', e)} />
-                            <Input label="Task status" value={taskForm.status} onChange={(e: EventTarget) => handleChangeFormInput('status', e)} />
+                            {
+                                Object.keys(taskForm).map((taskAttribute) =>
+                                    <Input
+                                        label={`Task ${taskAttribute}`}
+                                        value={taskForm[(taskAttribute as keyof TaskForm)]}
+                                        onChange={(e: EventTarget) => handleChangeFormInput((taskAttribute as keyof TaskForm), e)}
+                                    />
+                                )
+                            }
                         </div>
 
                         <button onClick={handleAddTask}>ADD TASK</button>
+                    </Modal>
+                )
+            }
 
+            {
+                isUpdating && (
+                    <Modal>
+                        <div className="header">
+                            <div>Update {taskForm.title}</div>
+                            <Button className="close" onClick={() => setIsUpdating(false)}>X</Button>
+                        </div>
+
+                        <div className="form">
+                            {
+                                Object.keys(taskForm).map((taskAttribute) => <Input label={`Task ${taskAttribute}`} value={taskForm[(taskAttribute as keyof TaskForm)]} onChange={(e: EventTarget) => handleChangeFormInput((taskAttribute as keyof TaskForm), e)} />)
+                            }
+                        </div>
+
+                        <button onClick={handleChangeTask}>Update Task</button>
                     </Modal>
                 )
             }
