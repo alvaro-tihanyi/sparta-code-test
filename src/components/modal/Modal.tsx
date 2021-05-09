@@ -7,6 +7,7 @@ const modalRoot = document.querySelector('#modal-root') as HTMLElement;
 
 const Modal: React.FC<ModalProps> = ({ children }) => {
     const modalElement = useRef(document.createElement('div'));
+    modalElement.current.className = "modal";
 
     useEffect(() => {
         const { current } = modalElement;
@@ -15,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
         return () => void modalRoot.removeChild(current);
     }, [ modalElement ]);
 
-    return createPortal(<div className="modal">{children}</div>, modalElement.current)
+    return createPortal(<div className="modal-content">{children}</div>, modalElement.current)
 }
 
 export default Modal;

@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 import { login } from 'actions/users';
 
 import { UpdaterMethod, EventTarget } from 'helpers/types';
-import Input from 'components/input';
+import { Input, Button, Spinner } from 'components';
 
 const Login = () => {
     const [ username, setUsername ] = useState('');
@@ -34,14 +34,14 @@ const Login = () => {
         <div className="container">
             <h2>LOGIN PAGE</h2>
             {
-                loading ? <span>Loading...</span> : <>
+                loading ? <Spinner /> : <>
                     {
                         loggedIn ? <span>SUCCESS!</span> : <>
-                            <div>
+                            <div className="loginForm">
                                 <Input label="Username" type="text" value={username} onChange={(e: EventTarget) => handleChanges(e, 'setUsername')} />
                                 <Input label="Password" type="password" value={password} onChange={(e: EventTarget) => handleChanges(e, 'setPassword')} />
                             </div>
-                            <button onClick={handleLogin}>Log in</button>
+                            <Button onClick={handleLogin}>Log in</Button>                            
                         </>
                     }
                 </>

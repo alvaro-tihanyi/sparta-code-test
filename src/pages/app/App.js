@@ -1,12 +1,15 @@
 import Cookies from 'universal-cookie';
-import Login from 'pages/login';
-import Board from 'pages/board';
+import { Login, Board } from 'pages';
 
 const App = () => {
   const cookies = new Cookies();
   const token = cookies.get('token');
 
-  return token === undefined ? <Login /> : <Board user={token.username} />;
+  console.log(token);
+
+  const authorized = token !== undefined && typeof token === 'object' && 'auth' in token && token.auth;
+
+  return authorized ? <Board user={token.username} /> : <Login />;
 }
 
 export default App;

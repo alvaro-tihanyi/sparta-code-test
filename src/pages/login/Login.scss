@@ -18,7 +18,11 @@
 
     border-radius: 5px;
 
-    div {
+    div.spinner {
+        margin: auto;
+    }
+
+    div.loginForm {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -71,7 +75,7 @@
 
 @media screen and (max-width: $sm) {
     .container {
-        div {
+        div.loginForm {
             .inputWrapper {
                 flex-direction: column;
                 width: 100%;
