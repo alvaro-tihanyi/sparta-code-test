@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, FC } from 'react';
 import { createPortal } from 'react-dom';
-
 import { ModalProps } from 'helpers/types';
 
 const modalRoot = document.querySelector('#modal-root') as HTMLElement;
 
-const Modal: React.FC<ModalProps> = ({ children }) => {
+const Modal:FC<ModalProps> = ({ children }) => {
     const modalElement = useRef(document.createElement('div'));
     modalElement.current.className = "modal";
 

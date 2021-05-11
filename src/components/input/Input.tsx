@@ -1,8 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
+import { InputProps } from 'helpers/types';
 
-import { InputType } from 'helpers/types';
-
-const Input = ({ label, type, value, onChange }: InputType ) => {
+const Input:FC<InputProps> = ({ label, type, value, onChange } ) => {
     return (
         <div className="inputWrapper">
             { label && <label>{label}</label>}

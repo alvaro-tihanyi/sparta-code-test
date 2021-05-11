@@ -6,10 +6,10 @@ import { UpdaterMethod, EventTarget } from 'helpers/types';
 import { Input, Button, Spinner } from 'components';
 
 const Login = () => {
-    const [ username, setUsername ] = useState('');
-    const [ password, setPassword ] = useState('');
-    const [ loading, setLoading ] = useState(false);
-    const [ loggedIn, setLoggedIn ] = useState(false);
+    const [ username, setUsername ] = useState<string>('');
+    const [ password, setPassword ] = useState<string>('');
+    const [ loading, setLoading ] = useState<boolean>(false);
+    const [ loggedIn, setLoggedIn ] = useState<boolean>(false);
 
     const updaters = { setUsername, setPassword };
 
@@ -25,7 +25,7 @@ const Login = () => {
                 setLoggedIn(true);
                 setLoading(false);
                 const cookies = new Cookies();
-                cookies.set('token', JSON.stringify(token));
+                cookies.set('token', JSON.stringify(token), { maxAge: 31536000 });
                 window.location.reload();
             })
     };

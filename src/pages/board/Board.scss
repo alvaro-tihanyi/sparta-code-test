@@ -5,11 +5,6 @@
     align-items: center;
     background-color: #222;
 
-    button:hover {
-        background-color: #444;
-        color: white;
-    }
-
     .board {
         display: flex;
         flex-direction: row;
@@ -66,32 +61,23 @@
             }
         }
     }
-}
 
-.card {
-    border-radius: 2px;
-    padding: 1%;
-    background-color: white;
-    box-shadow: 0px 0px 2px 0px black;
-    display: flex;
-    margin: 2%;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
+    .buttons-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 60%;
+        height: 5%;
+        margin-bottom: 1%;
 
-    h4 {
-        margin: 0;
-        top: 0;
-        border-bottom: 2px solid black;
-        width: 100%;
-        text-align: center;
-    }
-
-    p {
-        width: 90%;
+        button {
+            height: auto;
+        }
     }
 }
 
-.card:hover {
-    box-shadow: 0px 0px 2px 1px black;
+.createButton {
+    padding: 2%;
+    margin: auto;
+    margin-top: 5%;
+    width: 80%;
 }

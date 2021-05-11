@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import Modal from 'components/modal';
 
-import { CardProps, Task, Tasks, EventTarget } from 'helpers/types';
-import { Input, Button } from 'components';
+import { Task, Tasks, TaskKeys, EventTarget } from 'helpers/types';
+import { Input, Button, Card, Spinner } from 'components';
+import { isDebuggerStatement } from 'typescript';
 
-const Card = ({ title, description, onClick }: CardProps) => {
-    return <div className="card" onClick={onClick}>
-        <h4>{title}</h4>
-        <p>{description}</p>
-    </div>;
-}
-
-interface TaskForm extends Task {
+interface TaskForm {
     title: string,
     description: string,
-    status: string,
 }
 
-const Board = ({ user }: { user: string }) => {
-    const [ isAdding, setIsAdding ] = useState(false);
-    const [ isUpdating, setIsUpdating ] = useState(false);
-    const [ tasks, setTasks ] = useState<Tasks>({ 'open': [], 'work in progress': [], 'done': [] });
+const Board = () => {
+    const [ isAdding, setIsAdding ] = useState<Boolean>(false);
 
-    const defaultTaskFormValue = { title: '', description: '', status: 'open' };
+    // const defaultTasksValue = { 'open': [], 'work in progress': [], 'done': [] };
+    const statusValues = [ 'open', 'work in progress', 'done' ];
+    const defaultTaskFormValue = { title: '', description: '' };
+
+    const [ tasks, setTasks ] = useState<Array<Task>>([]);
     const [ taskForm, setTaskForm ] = useState<TaskForm>(defaultTaskFormValue);
+    const [ selectedTask, setSelectedTask ] = useState<Task | null>(null);
 
     const handleChangeFormInput = (key: keyof TaskForm, e: EventTarget) => {
         const { target: { value }} = e;
@@ -33,39 +29,64 @@ const Board = ({ user }: { user: string }) => {
     }
 
     const handleAddTask = () => {
-        const { status } = taskForm;
-        const currentTasks = { ...tasks };
-
-        if (currentTasks[status] === undefined) {
-            currentTasks[status] = [];
-        }
-
-        currentTasks[status].push(taskForm);
+        const currentTasks = [ ...tasks ];
+        currentTasks.push({
+            status: 'open',
+            id: currentTasks.length,
+            ...taskForm
+        });
 
         setIsAdding(false);
         setTasks(currentTasks);
         setTaskForm(defaultTaskFormValue);
     }
 
-    const handleUpdateTask = (form: TaskForm) => {
-        setTaskForm(form);
-        setIsUpdating(true);
+    const selectTask = (task: Task, status: string) => {
+        setSelectedTask(task);
     }
 
-    const handleChangeTask = () => {
+    const handleChangeTask = (id: number, changeObj: { [ key: string ]: string }) => {
+        const currentTasks = [ ...tasks ];
+
+        debugger;
+
+        currentTasks.forEach((item, index) => {
+            if (index === id) {
+                Object.keys(changeObj).forEach((key) => {
+                    // @ts-ignore
+                    item[key] = changeObj[key];
+                })
+            }
+        });
         
+        setTasks(currentTasks);
     }
+
+    const handleDeleteTask = (id: number) => {
+        const currentTasks = [ ...tasks ];
+        currentTasks.splice(id, 1);
+        
+        setTasks(currentTasks);
+    }
+
+    const tasksObj:Tasks = {}
+
+    statusValues.forEach((item) => {
+        tasksObj[item] = tasks.filter((task) => task.status === item);
+    })
+
+    const updaterClassName = selectedTask !== null ? '' : 'invisible';
 
     return (
-        <div className="board-container">
+        <div className="board-container">            
             <div className="board">
                 {
-                    Object.keys(tasks).map((category: string) => (
+                    Object.keys(tasksObj).map((category, index) => (
                         <div className={`column ${category}`}>
                             <h3>{category}</h3>
                             <div className="content">
                                 {
-                                    tasks[category].map((item: Task) => <Card {...item} onClick={() => handleUpdateTask({ status: category, ...item })} />)
+                                    tasksObj[category].map((item: Task) => <Card {...item} onClick={() => selectTask(item, category)} />)
                                 }
                             </div>
                         </div>
@@ -73,7 +94,9 @@ const Board = ({ user }: { user: string }) => {
                     ))
                 }
             </div>
-            <Button onClick={() => setIsAdding(true)}>Add Tasks</Button>
+            <div className="buttons-wrapper">
+                <Button onClick={() => setIsAdding(true)}>Add Tasks</Button>
+            </div>
             {
                 isAdding && (
                     <Modal>
@@ -94,26 +117,36 @@ const Board = ({ user }: { user: string }) => {
                             }
                         </div>
 
-                        <button onClick={handleAddTask}>ADD TASK</button>
+                        <Button className="createButton" onClick={handleAddTask}>Create Task</Button>
                     </Modal>
                 )
             }
-
             {
-                isUpdating && (
+                selectedTask !== null && (
                     <Modal>
                         <div className="header">
-                            <div>Update {taskForm.title}</div>
-                            <Button className="close" onClick={() => setIsUpdating(false)}>X</Button>
+                            <div>Actions</div>
+                            <Button className="close" onClick={() => setSelectedTask(null)}>X</Button>
                         </div>
 
-                        <div className="form">
-                            {
-                                Object.keys(taskForm).map((taskAttribute) => <Input label={`Task ${taskAttribute}`} value={taskForm[(taskAttribute as keyof TaskForm)]} onChange={(e: EventTarget) => handleChangeFormInput((taskAttribute as keyof TaskForm), e)} />)
-                            }
-                        </div>
-
-                        <button onClick={handleChangeTask}>Update Task</button>
+                        {
+                            selectedTask.status === 'open' && <Button className={`${updaterClassName}`} onClick={() => {
+                                handleChangeTask(selectedTask.id, {
+                                    'status': 'work in progress'
+                                });
+                                setSelectedTask(null);
+                            }}>Start Task</Button>
+                        }
+                        {
+                            selectedTask.status !== 'done' && <Button className={`${updaterClassName}`} onClick={() => {
+                                handleChangeTask(selectedTask.id, { 'status': 'done' });
+                                setSelectedTask(null);
+                            }}>Mark as done</Button>
+                        }
+                        <Button className={`${updaterClassName} red`} onClick={() => {
+                            handleDeleteTask(selectedTask.id);
+                            setSelectedTask(null);
+                        }}>Delete Task</Button>
                     </Modal>
                 )
             }
