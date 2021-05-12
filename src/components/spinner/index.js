@@ -1,4 +1,4 @@
-import Spinner from './Spinner.tsx';
+import Spinner from './Spinner';
 import './Spinner.scss';
 
 export default Spinner;

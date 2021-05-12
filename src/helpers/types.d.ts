@@ -5,26 +5,39 @@ type User = { username: string, password: string };
 type UpdaterMethod = 'setUsername' | 'setPassword';
 type EventTarget = { target: { value: string } };
 
+type TaskForm = {
+    [key: string]: string,
+    title: string,
+}
+
 type ButtonProps = {
     label: string,
     onClick: () => void,
-    className: string | undefined,
+    className?: string,
 };
 
 type InputProps = {
-    label: string | undefined,
+    label?: string,
+    placeholder?: string,
     type: string,
     value: string,
     onChange: (e: EventTarget) => void,
 };
 
-type CardProps = { title: string, description: string, onClick: (...params: any) => void };
+type CardProps = {
+    title: string,
+    done: boolean,
+    isEditting?: boolean,
+    onEdit: (...params) => void,
+    onDelete: (...params) => void,
+    onDone: (...params) => void,
+};
 
-type SpinnerProps = { className: string | undefined };
+type SpinnerProps = { className?: string };
 
 type ModalProps = { children: ReactChildren };
 
-type Task = { id: number, title: string, description: string, status: string };
+type Task = { title: string, done: boolean };
 
 interface Tasks { [key: string]: Array<Task> }
 
@@ -43,6 +56,7 @@ export type {
   Task,
   Tasks,
   TaskKeys,
+  TaskForm,
 
   LoginFunction,
 };

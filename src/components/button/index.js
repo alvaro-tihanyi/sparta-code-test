@@ -1,4 +1,4 @@
-import Button from './Button.tsx';
+import Button from './Button';
 import './Button.scss';
 
 export default Button;

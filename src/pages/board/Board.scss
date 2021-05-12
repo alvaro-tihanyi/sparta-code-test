@@ -1,83 +1,21 @@
-.board-container {
+.addWrapper {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    align-items: center;
-    background-color: #222;
+    justify-content: center;
 
-    .board {
+    div {
+        width: 60%;
         display: flex;
-        flex-direction: row;
-        justify-content: center;
-        width: 100%;
-        height: 80%;
-        margin: auto;
-    
-        .column {
-            padding: 2%;
-            box-shadow: 0px 0px 2px 0px black;
-            width: 20%;
-            position: relative;
-            height: 95%;
-            background-color: #efefef;
 
-            h3 {
-                text-transform: capitalize;
-                border-bottom: 2px solid black;
-                border-radius: 5px;
-                height: 4%;
-                text-align: center;
-
-            }
-    
-            .content {
-                height: 90%;
-                width: 100%;
-                display: flex;
-                overflow-y: auto;
-                flex-direction: column;
-            }
-        }
-
-
-        .open {
-            h3 {
-                background-color: #02AB007D;
-                color: #222;
-            }
-        }
-
-        .work.in.progress {
-            h3 {
-                background-color: #ffa5007D;
-                color: #222;
-            }
-        }
-
-        .done {
-            h3 {
-                background-color: #a52a2a7D;
-                color: #222;
-            }
+        input {
+            width: 100%;
         }
     }
 
-    .buttons-wrapper {
-        display: flex;
-        flex-direction: row;
-        width: 60%;
-        height: 5%;
-        margin-bottom: 1%;
-
-        button {
-            height: auto;
-        }
+    .addButton {
+        width: 20%;
     }
 }
 
-.createButton {
-    padding: 2%;
-    margin: auto;
-    margin-top: 5%;
-    width: 80%;
+.tasks-container {
+    margin-top: 2%;
 }
