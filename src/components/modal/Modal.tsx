@@ -5,17 +5,17 @@ import { ModalProps } from 'helpers/types';
 const modalRoot = document.querySelector('#modal-root') as HTMLElement;
 
 const Modal:FC<ModalProps> = ({ children }) => {
-    const modalElement = useRef(document.createElement('div'));
-    modalElement.current.className = "modal";
+  const modalElement = useRef(document.createElement('div'));
+  modalElement.current.className = 'modal';
 
-    useEffect(() => {
-        const { current } = modalElement;
-        modalRoot.appendChild(current);
+  useEffect(() => {
+    const { current } = modalElement;
+    modalRoot.appendChild(current);
 
-        return () => void modalRoot.removeChild(current);
-    }, [ modalElement ]);
+    return () => void modalRoot.removeChild(current);
+  }, [modalElement]);
 
-    return createPortal(<div className="modal-content">{children}</div>, modalElement.current)
-}
+  return createPortal(<div className="modal-content">{children}</div>, modalElement.current);
+};
 
 export default Modal;

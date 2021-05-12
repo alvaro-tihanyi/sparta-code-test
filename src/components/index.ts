@@ -5,9 +5,9 @@ import Spinner from './spinner';
 import Card from './card';
 
 export {
-    Button,
-    Input,
-    Modal,
-    Spinner,
-    Card,
-}
+  Button,
+  Input,
+  Modal,
+  Spinner,
+  Card,
+};
