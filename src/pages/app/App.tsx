@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 
-import { Login, Board } from 'pages';
 import { Spinner } from 'components';
+import Board from 'pages/board';
+import Login from 'pages/login';
 
 const App:FC = () => {
   const [authorized, setAuthorized] = useState<boolean | null>(null);

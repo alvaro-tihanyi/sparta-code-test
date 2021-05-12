@@ -3,7 +3,7 @@ import Board from './board';
 import Login from './login';
 
 export {
-    App,
-    Board,
-    Login,
-}
+  App,
+  Board,
+  Login,
+};

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { CardProps } from '../../helpers/types.d';
+import { string, func } from 'prop-types';
+import { CardProps } from 'helpers/types.d';
 
 const Card:FC<CardProps> = ({ title, description, onClick }) => (
   <button type="button" className="card" onClick={onClick}>
@@ -7,5 +8,11 @@ const Card:FC<CardProps> = ({ title, description, onClick }) => (
     <p>{description}</p>
   </button>
 );
+
+Card.propTypes = {
+  title: string.isRequired,
+  description: string.isRequired,
+  onClick: func.isRequired,
+};
 
 export default Card;

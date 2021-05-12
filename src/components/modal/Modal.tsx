@@ -1,6 +1,6 @@
-import { useEffect, useRef, FC } from 'react';
+import React, { useEffect, useRef, FC } from 'react';
 import { createPortal } from 'react-dom';
-import { ModalProps } from 'helpers/types';
+import { ModalProps } from 'helpers/types.d';
 
 const modalRoot = document.querySelector('#modal-root') as HTMLElement;
 
@@ -12,7 +12,9 @@ const Modal:FC<ModalProps> = ({ children }) => {
     const { current } = modalElement;
     modalRoot.appendChild(current);
 
-    return () => void modalRoot.removeChild(current);
+    return () => {
+      modalRoot.removeChild(current);
+    };
   }, [modalElement]);
 
   return createPortal(<div className="modal-content">{children}</div>, modalElement.current);

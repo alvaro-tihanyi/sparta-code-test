@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { InputProps } from 'helpers/types';
+import { string, func } from 'prop-types';
+import { InputProps } from 'helpers/types.d';
 
 const Input:FC<InputProps> = ({
   label, type, value, onChange,
@@ -9,5 +10,16 @@ const Input:FC<InputProps> = ({
     <input type={type} value={value} onChange={onChange} />
   </div>
 );
+
+Input.defaultProps = {
+  label: undefined,
+};
+
+Input.propTypes = {
+  label: string,
+  type: string.isRequired,
+  value: string.isRequired,
+  onChange: func.isRequired,
+};
 
 export default Input;

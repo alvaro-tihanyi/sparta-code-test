@@ -28,11 +28,14 @@ module.exports = {
   rules: {
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'linebreak-style': 'off',
+    'import/prefer-default-export': 'off',
   },
   settings: {
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        paths: ['src'],
       },
     },
   },

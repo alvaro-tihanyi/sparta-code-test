@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { login } from 'actions/users';
 
-import { UpdaterMethod, EventTarget } from 'helpers/types';
+import { UpdaterMethod, EventTarget } from 'helpers/types.d';
 import { Input, Button, Spinner } from 'components';
 
 const Login:FC = () => {
@@ -43,7 +43,7 @@ const Login:FC = () => {
                               <Input label="Username" type="text" value={username} onChange={(e: EventTarget) => handleChanges(e, 'setUsername')} />
                               <Input label="Password" type="password" value={password} onChange={(e: EventTarget) => handleChanges(e, 'setPassword')} />
                             </div>
-                            <Button onClick={handleLogin}>Log in</Button>
+                            <Button label="Log in" onClick={handleLogin} />
                           </>
                         )
                     }
