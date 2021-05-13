@@ -30,6 +30,10 @@
     .card-buttons {
         display: flex;
 
+        button {
+            min-width: 25%;
+        }
+
         .deleteButton:hover {
             background-color: $red;
         }
