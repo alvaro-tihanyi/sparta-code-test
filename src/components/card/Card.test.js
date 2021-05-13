@@ -2,7 +2,6 @@ import React from 'react';
 import {
   render, screen, fireEvent,
 } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 
 import { Card } from 'components';
 
@@ -20,12 +19,6 @@ describe('Card Basic Tests', () => {
 });
 
 describe('Card handlers Tests', () => {
-  test('Edit works OK', () => {
-    render(testCard);
-    fireEvent.click(screen.getByText('Edit'));
-    // expect(screen.getByText('Finish Edit')).toBe('button');
-  });
-
   test('Done works OK', () => {
     render(testCard);
     fireEvent.click(screen.getByText('Done'));

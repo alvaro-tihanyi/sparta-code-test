@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, Fragment } from 'react';
 import { Task, EventTarget, TaskForm } from 'helpers/types.d';
 import { Button, Card, Input } from 'components';
 
@@ -54,22 +54,16 @@ const Board:FC = () => {
         {
           tasks.map(({
             title, done,
-          }, index) => {
-            console.log(title);
-
-            return (
-              <>
-                <Card
-                  key={title}
-                  done={done}
-                  title={title}
-                  onEdit={(value) => handleEdit(index, value)}
-                  onDelete={() => handleDelete(index)}
-                  onDone={() => handleChangeDone(index)}
-                />
-              </>
-            );
-          })
+          }, index) => (
+            <Card
+              key={title}
+              done={done}
+              title={title}
+              onEdit={(value) => handleEdit(index, value)}
+              onDelete={() => handleDelete(index)}
+              onDone={() => handleChangeDone(index)}
+            />
+          ))
         }
       </div>
     </div>

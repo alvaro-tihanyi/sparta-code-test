@@ -30,7 +30,6 @@ const Card:FC<CardProps> = ({
           !done && <Button label={editButtonProps.label} onClick={editButtonProps.onClick} />
         }
         <Button label={done ? 'Open task again' : 'Done'} onClick={onDone} />
-
         <Button className="deleteButton" label="Delete" onClick={onDelete} />
       </div>
     </div>
