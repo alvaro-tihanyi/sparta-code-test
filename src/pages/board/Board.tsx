@@ -1,4 +1,4 @@
-import React, { FC, useState, Fragment } from 'react';
+import React, { FC, useState } from 'react';
 import { Task, EventTarget, TaskForm } from 'helpers/types.d';
 import { Button, Card, Input } from 'components';
 
@@ -46,6 +46,7 @@ const Board:FC = () => {
   return (
     <div className="container">
       <h2>Tasks</h2>
+      <p>(title is supposed to be unique)</p>
       <div className="addWrapper">
         <Input type="text" placeholder="Title" value={taskForm.title} onChange={({ target }: EventTarget) => handleChangeAddInput('title', target.value)} />
         <Button label="Add task" className="addButton" onClick={handleAddTask} />
