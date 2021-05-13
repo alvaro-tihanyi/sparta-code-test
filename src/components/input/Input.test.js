@@ -6,7 +6,7 @@ import {
 import { Input } from 'components';
 
 const onChangeMock = jest.fn();
-const testInput = <Input type="text" value="Test" label="TEST LABEL" onChange={onChangeMock} />;
+const testInput = <Input type="text" value="Test" placeholder="Test" label="TEST LABEL" onChange={onChangeMock} />;
 
 describe('Input Basic Tests', () => {
   test('Input mounts OK', () => {
@@ -16,7 +16,7 @@ describe('Input Basic Tests', () => {
 
   test('Input change works OK', () => {
     render(testInput);
-    fireEvent.change(screen.getByDisplayValue('Test'));
-    expect(onChangeMock).toHaveBeenCalled();
+    fireEvent.change(screen.getByPlaceholderText('Test'), { target: { value: 'new value' } });
+    expect(onChangeMock).toBeCalled();
   });
 });
