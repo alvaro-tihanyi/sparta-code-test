@@ -35,8 +35,6 @@ type CardProps = {
 
 type SpinnerProps = { className?: string };
 
-type ModalProps = { children: ReactChildren };
-
 type Task = { title: string, done: boolean };
 
 interface Tasks { [key: string]: Array<Task> }
@@ -52,7 +50,6 @@ export type {
   InputProps,
   SpinnerProps,
   CardProps,
-  ModalProps,
   Task,
   Tasks,
   TaskKeys,
